@@ -29,22 +29,27 @@ struct node *program;
 
 program: IDENTIFIER '(' parameters ')' '=' expression
                                     { $$ = program = newnode(Program, NULL);
-                                      struct node *function = newnode(Function, NULL);
-                                      addchild(function, newnode(Identifier, $1));
-                                      addchild(function, $3);
-                                      addchild(function, $6);
-                                      addchild($$, function); }
+                                        struct node *function = newnode(Function, NULL);
+                                        addchild(function, newnode(Identifier, $1));
+                                        addchild(function, $3);
+                                        addchild(function, $6);
+                                        addchild($$, function); }
+
+    | program IDENTIFIER '(' parameters ')' '=' expression
+                                    { struct node *function = newnode(Function, NULL);
+                                        addchild(function, newnode(Identifier, $2));
+                                        addchild(function, $4);
+                                        addchild(function, $7);
+                                        addchild($1, function); }
+
     ;
+
+
+
 
 parameters: parameter               { $$ = newnode(Parameters, NULL); addchild($$,$1); }
     | parameters ',' parameter      { $$ = $1; addchild($$, $3); }
     ;   
-
-/*
-parameter: INTEGER IDENTIFIER       { $$ = newnode(Parameter, NULL); addchild($$, newnode(Integer, NULL)); addchild(Identifier,$2); }
-    | DOUBLE IDENTIFIER             { $$ = newnode(Parameter, NULL); addchild($$, newnode(Double, NULL)); addchild(Identifier,$2); }
-    ;
-*/
 
 parameter: INTEGER IDENTIFIER
           { $$ = newnode(Parameter, NULL);
