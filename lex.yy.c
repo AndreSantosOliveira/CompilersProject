@@ -845,7 +845,7 @@ case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
 #line 49 "petit.l"
-{ lex_line++; lex_column = 1; }
+{ return 0; /*lex_line++; lex_column = 1;*/ }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -858,12 +858,12 @@ YY_RULE_SETUP
 { yyerror("unrecognized character"); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 52 "petit.l"
+#line 53 "petit.l"
 { return 0; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 54 "petit.l"
+#line 55 "petit.l"
 ECHO;
 	YY_BREAK
 #line 870 "lex.yy.c"
@@ -1869,7 +1869,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 54 "petit.l"
+#line 55 "petit.l"
 
 
 /* START subroutines section -- user functions */
@@ -1880,8 +1880,10 @@ void yyerror(char *error) {
 }
 
 int main(int argc, char *argv[]) {
-    yyparse();
-    show(program, 0);
+    yyparse(); // Parse the input
+    show(program, 0); // Display the output
+    free_tree(program); // Free the memory of the program tree
+
     return 0;
 }
 

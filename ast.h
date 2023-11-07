@@ -38,5 +38,6 @@ struct node *newnode(enum category category, char *token);
 void addchild(struct node *parent, struct node *child);
 
 void show(struct node *node, int depth);
+void free_tree(struct node *root);
 
 #endif
