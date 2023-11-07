@@ -46,7 +46,7 @@ else                        { return ELSE; }
 <COMMENT><<EOF>>            { return 0; }
 
 [\t ]+                      {;}
-\n|\r|\r\n                  { return 0; /*lex_line++; lex_column = 1;*/ }
+\n|\r|\r\n                  { lex_line++; lex_column = 1; }
 [()=,*/+-]                  { return yytext[0]; }
 .                           { yyerror("unrecognized character"); }
 
@@ -64,7 +64,5 @@ void yyerror(char *error) {
 int main(int argc, char *argv[]) {
     yyparse(); // Parse the input
     show(program, 0); // Display the output
-    free_tree(program); // Free the memory of the program tree
-
     return 0;
 }

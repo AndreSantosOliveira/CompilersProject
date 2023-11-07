@@ -845,7 +845,7 @@ case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
 #line 49 "petit.l"
-{ return 0; /*lex_line++; lex_column = 1;*/ }
+{ lex_line++; lex_column = 1; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -1882,8 +1882,6 @@ void yyerror(char *error) {
 int main(int argc, char *argv[]) {
     yyparse(); // Parse the input
     show(program, 0); // Display the output
-    free_tree(program); // Free the memory of the program tree
-
     return 0;
 }
 

@@ -75,25 +75,3 @@ void show(struct node *node, int depth)
         children = children->next;
     }
 }
-
-// Free program tree
-void free_tree(struct node *root)
-{
-    if (root == NULL)
-    {
-        return;
-    }
-
-    // Recursively free children
-    struct node_list *children = root->children;
-    while (children != NULL)
-    {
-        struct node *child = children->node;
-        free_tree(child);
-        children = children->next;
-    }
-
-    // Free the current node
-    free(root->token); // Free any allocated token string
-    free(root);
-}
