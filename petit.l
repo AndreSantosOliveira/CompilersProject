@@ -63,6 +63,7 @@ void yyerror(char *error) {
 
 int main(int argc, char *argv[]) {
     yyparse(); // Parse the input
-    show(program, 0); // Display the output
+    if(errors == 0)
+        show(program, 0); // Display the output
     return 0;
 }
